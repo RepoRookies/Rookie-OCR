@@ -19,7 +19,7 @@ def main():
     type = SegmentationType.HPP
     line_segmenter = SegmentationBuilder.Build(SegmentationType.HPP)
     word_segmenter = SegmentationBuilder.Build(SegmentationType.VPP, min_width=50)
-    char_segmenter = SegmentationBuilder.Build(SegmentationType.CCA)
+    char_segmenter = SegmentationBuilder.Build(SegmentationType.COUNTOUR)
     line1 = line_segmenter.Segment(image)[0]
     word1 = word_segmenter.Segment(line1)[0]
     char1 = char_segmenter.Segment(word1)[0]
