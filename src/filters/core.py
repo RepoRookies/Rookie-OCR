@@ -1,7 +1,6 @@
 from src.filters.interface import IFilter
 from src.utils.calc import Calc
 
-from cv2 import CLAHE
 import numpy as np
 
 

@@ -1,9 +1,8 @@
 import numpy as np
+from abc import ABC, abstractmethod
 
 
-class IFilter:
-    def __init__(self):
-        pass
-
+class IFilter(ABC):
+    @abstractmethod
     def Filter(self, image: np.ndarray) -> np.ndarray:
-        raise NotImplementedError
+        pass
