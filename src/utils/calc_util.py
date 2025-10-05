@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-class Calc:
+class CalcUtil:
     @staticmethod
     def Convolve(image: np.ndarray, kernel: np.ndarray) -> np.ndarray:
         """
