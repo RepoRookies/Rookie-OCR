@@ -8,3 +8,4 @@ class SegmentationType(Enum):
     HPP = auto() # Horizontal Projection Profile
     VPP = auto() # Vertical Projection Profile
     CCA = auto() # Connected Component Analysis
+    COUNTOUR = auto() # Contour-based segmentation
