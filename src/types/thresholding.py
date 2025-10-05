@@ -2,11 +2,11 @@ from enum import Enum
 
 
 class ThresholdingMode(Enum):
-    BINARY = "Binary Thresholding"
-    BINARY_INV = "Binary Inverted Thresholding"
-    TRUNC = "Truncate Thresholding"
-    TOZERO = "To Zero Thresholding"
-    TOZERO_INV = "To Zero Inverted Thresholding"
+    BINARY = "Binary"
+    BINARY_INV = "Binary Inverted"
+    TRUNC = "Truncate"
+    TOZERO = "To Zero"
+    TOZERO_INV = "To Zero Inverted"
 
 
 class ThresholdingType(Enum):

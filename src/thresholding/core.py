@@ -37,7 +37,7 @@ class GlobalThresholding(IThresholding):
         Args:
             mode (ThresholdingMode): The thresholding mode
             threshold (float, optional): The threshold value. Defaults to 127.0.
-            max_value (float, optional): The maximum value. Defaults to 255.0.
+            max_value (float, optional): The maximum pixel value. Defaults to 255.
         """
         self.mode = mode
         self.threshold = threshold
@@ -48,7 +48,7 @@ class GlobalThresholding(IThresholding):
         """
         Apply global thresholding to an image
         Args:
-            image (np.ndarray, 2D): The input image to be thresholded
+            image (np.ndarray, 2D): Input image to be thresholded
         Returns:
             image (np.ndarray, 2D): Output image after applying the global thresholding
         """
@@ -61,25 +61,23 @@ class GlobalThresholding(IThresholding):
 
 
 class AdaptiveMeanThresholding(IThresholding):
+
     def __init__(
         self,
         mode: ThresholdingMode,
-        threshold: float = 127.0,
-        max_value: float = 255.0,
         block_size: int = 11,
         C: float = 3.0,
+        max_value: float = 255.0,
     ):
         """
         Constructor for AdaptiveMeanThresholding class
         Args:
             mode (ThresholdingMode): The thresholding mode
-            threshold (float, optional): The threshold value. Defaults to 127.0.
-            max_value (float, optional): The maximum value. Defaults to 255.0.
             block_size (int, optional): The block size. Defaults to 11.
             C (float, optional): The constant value. Defaults to 3.0.
+            max_value (float, optional): The maximum pixel value. Defaults to 255.
         """
         self.mode = mode
-        self.threshold = threshold
         self.max_value = max_value
         self.block_size = block_size
         self.C = C
@@ -88,7 +86,7 @@ class AdaptiveMeanThresholding(IThresholding):
         """
         Apply adaptive mean thresholding to an image
         Args:
-            image (np.ndarray, 2D): The input image to be thresholded
+            image (np.ndarray, 2D): Input image to be thresholded
         Returns:
             image (np.ndarray, 2D): Output image after applying the adaptive mean thresholding
         """
@@ -109,21 +107,23 @@ class AdaptiveMeanThresholding(IThresholding):
 
 
 class AdaptiveGaussianThresholding(IThresholding):
+
     def __init__(
         self,
         mode: ThresholdingMode,
-        max_value: float = 255.0,
         block_size: int = 11,
         sigma: float = 1.0,
         C: float = 3.0,
+        max_value: float = 255.0,
     ):
         """
-        Adaptive Gaussian Thresholding
+        Constructor for AdaptiveGaussianThresholding class
         Args:
-            mode (ThresholdingMode): Thresholding mode
-            max_value (float, optional): Maximum pixel value. Defaults to 255.
+            mode (ThresholdingMode): The thresholding mode
             block_size (int, optional): Odd-sized neighborhood. Defaults to 11.
-            C (float, optional): Constant subtracted from local weighted mean. Defaults to 3.
+            sigma (float, optional): Standard deviation of the Gaussian kernel. Defaults to 1.0.
+            C (float, optional): Constant subtracted from local weighted mean. Defaults to 3.0.
+            max_value (float, optional): The maximum pixel value. Defaults to 255.
         """
         self.mode = mode
         self.max_value = max_value
@@ -138,7 +138,7 @@ class AdaptiveGaussianThresholding(IThresholding):
         """
         Apply adaptive Gaussian thresholding to an image
         Args:
-            image (np.ndarray, 2D): The input image to be thresholded
+            image (np.ndarray, 2D): Input image to be thresholded
         Returns:
             image (np.ndarray, 2D): Output image after applying the adaptive Gaussian thresholding
         """
@@ -161,10 +161,10 @@ class AdaptiveGaussianThresholding(IThresholding):
 class OtsuThresholding(IThresholding):
     def __init__(self, mode: ThresholdingMode, max_value: float = 255.0):
         """
-        Otsu Thresholding
+        Constructor for OtsuThresholding class
         Args:
-            mode (ThresholdingMode): Thresholding mode
-            max_value (float, optional): Maximum pixel value. Defaults to 255.
+            mode (ThresholdingMode): The thresholding mode
+            max_value (float, optional): The maximum pixel value. Defaults to 255.
         """
         self.mode = mode
         self.max_value = max_value
@@ -173,7 +173,7 @@ class OtsuThresholding(IThresholding):
         """
         Apply Otsu thresholding to an image by computing the histogram and finding the threshold that maximizes the between-class variance
         Args:
-            image (np.ndarray, 2D): The input image to be thresholded
+            image (np.ndarray, 2D): Input image to be thresholded
         Returns:
             image (np.ndarray, 2D): Output image after applying the Otsu thresholding
         """
