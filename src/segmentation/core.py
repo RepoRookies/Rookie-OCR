@@ -130,3 +130,41 @@ class CCA_Segmentation(ISegmenter):
         components.sort(key=lambda item: item[0])
         
         return [comp[1] for comp in components]
+    
+class Contour_Segmentation(ISegmenter):
+    def __init__(self, min_height: int = 5, min_width: int = 3, margin: int = 2):
+        """
+        Constructor for Contour-based segmentation.
+        Args:
+            min_height (int): Minimum height for a contour to be considered.
+            min_width (int): Minimum width for a contour to be considered.
+            margin (int): Margin in pixels around the contour crop.
+        """
+        self.min_height = min_height
+        self.min_width = min_width
+        self.margin = margin
+
+    def Segment(self, image: np.ndarray) -> List[np.ndarray]:
+        """
+        Applies contour-based segmentation to an image.
+        Args:
+            image (np.ndarray, 2D): The input binary image.
+        Returns:
+            segments (List[np.ndarray]): A list of cropped images for each detected contour.
+        """
+        if image.size == 0:
+            return []
+
+        # Find contours
+        contours, _ = cv2.findContours(image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        
+        segments = []
+        for cnt in contours:
+            x, y, w, h = cv2.boundingRect(cnt)
+            if h >= self.min_height and w >= self.min_width:
+                segment_crop = image[max(0, y - self.margin):min(image.shape[0], y + h + self.margin),
+                                     max(0, x - self.margin):min(image.shape[1], x + w + self.margin)]
+                segments.append(segment_crop)
+
+        segments = sorted(segments, key=lambda seg: cv2.boundingRect(seg)[0])
+        return segments
