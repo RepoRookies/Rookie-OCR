@@ -1,11 +1,11 @@
-from enum import Enum, auto
+from enum import Enum
 
 
 class FilterType(Enum):
-    AVERAGE = auto()
-    MEDIAN = auto()
-    GAUSSIAN = auto()
-    SOBEL = auto()
-    LAPLACIAN = auto()
-    UNSHARP_MASKING = auto()
-    HIGH_BOOST = auto()
+    AVERAGE = "Average/Mean Filter"
+    MEDIAN = "Median Filter"
+    GAUSSIAN = "Gaussian Filter"
+    SOBEL = "Sobel Filter"
+    LAPLACIAN = "Laplacian Filter"
+    UNSHARP_MASKING = "Unsharp Masking (USM) Filter"
+    HIGH_BOOST = "High-boost Filter"

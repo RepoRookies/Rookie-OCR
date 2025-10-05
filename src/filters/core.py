@@ -6,10 +6,10 @@ import numpy as np
 
 
 class AverageFilter(IFilter):
-    def __init__(self, kernel_size: int = 3):
+    def __init__(self, kernel_size: int = 5):
         """Constructor for AverageFilter class
         Args:
-            kernel_size (int, optional): Size of the average filter kernel. Defaults to 3.
+            kernel_size (int, optional): Size of the average filter kernel. Defaults to 5.
         """
         self.kernel_size = kernel_size
         self.kernel = self.GenerateKernel()
@@ -34,10 +34,10 @@ class AverageFilter(IFilter):
 
 
 class MedianFilter(IFilter):
-    def __init__(self, kernel_size: int = 3):
+    def __init__(self, kernel_size: int = 5):
         """Constructor for MedianFilter class
         Args:
-            kernel_size (int, optional): Size of the median filter kernel. Defaults to 3.
+            kernel_size (int, optional): Size of the median filter kernel. Defaults to 5.
         """
         self.kernel_size = kernel_size
 
@@ -61,7 +61,7 @@ class MedianFilter(IFilter):
 
 
 class GaussianFilter(IFilter):
-    def __init__(self, sigma: float = 1.0, kernel_size: int = None):
+    def __init__(self, sigma: float = 1.0, kernel_size: int = 5):
         """Constructor for GaussianFilter class
         Args:
             sigma (float, optional): Standard deviation of the Gaussian kernel. Defaults to 1.0.

@@ -1,4 +1,6 @@
-from src.filters.core import GaussianFilter
+from src.filters.core import *
+from src.filters.builder import FilterBuilder
+from src.types.filters import FilterType
 
 import cv2
 import matplotlib.pyplot as plt
@@ -6,10 +8,13 @@ import matplotlib.pyplot as plt
 
 def main():
     image = cv2.imread("assets/test.png", cv2.IMREAD_GRAYSCALE)
-    gaussian = GaussianFilter(sigma=2, kernel_size=5)
-    filtered_image = gaussian.Filter(image)
+
+    type = FilterType.LAPLACIAN
+    flt = FilterBuilder.Build(type)
+    filtered_image = flt.Filter(image)
 
     plt.subplots(1, 2, figsize=(10, 5))
+    plt.suptitle(type.value)
 
     plt.subplot(1, 2, 1)
     plt.imshow(image, cmap="gray")
