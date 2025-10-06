@@ -5,7 +5,7 @@ from typing import List
 
 class PlotUtil:
     @staticmethod
-    def PlotImage(image: np.ndarray, title: str = "", cmap: str = "gray"):
+    def PlotImage(image: np.ndarray, title: str = "", cmap: str = "gray") -> None:
         """
         Plots an image using matplotlib.
         Args:
@@ -24,7 +24,7 @@ class PlotUtil:
         title: str = "",
         subtitles: List[str] = [],
         cmap: str = "gray",
-    ):
+    ) -> None:
         """
         Plots a list of images using matplotlib.
         Args:

@@ -44,7 +44,7 @@ class GlobalThresholding(IThresholding):
         self.max_value = max_value
         self.thres_func = ThresholdHelper.GetThresFunc(mode, threshold, max_value)
 
-    def ApplyThresholding(self, image):
+    def ApplyThresholding(self, image: np.ndarray) -> np.ndarray:
         """
         Apply global thresholding to an image
         Args:
@@ -82,7 +82,7 @@ class AdaptiveMeanThresholding(IThresholding):
         self.block_size = block_size
         self.C = C
 
-    def ApplyThresholding(self, image):
+    def ApplyThresholding(self, image: np.ndarray) -> np.ndarray:
         """
         Apply adaptive mean thresholding to an image
         Args:
