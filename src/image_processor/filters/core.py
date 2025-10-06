@@ -1,5 +1,5 @@
-from src.filters.interface import IFilter
-from src.utils.calc_util import CalcUtil
+from .interface import IFilter
+from src.utils import CVMath
 
 import numpy as np
 
@@ -29,7 +29,7 @@ class AverageFilter(IFilter):
         Returns:
             image (np.ndarray, 2D): The filtered image
         """
-        return CalcUtil.Convolve(image, self.kernel)
+        return CVMath.Convolve(image, self.kernel)
 
 
 class MedianFilter(IFilter):
@@ -90,7 +90,7 @@ class GaussianFilter(IFilter):
         Returns:
             image (np.ndarray, 2D): The filtered image
         """
-        return CalcUtil.Convolve(image, self.kernel)
+        return CVMath.Convolve(image, self.kernel)
 
 
 class SobelFilter(IFilter):
@@ -118,7 +118,7 @@ class SobelFilter(IFilter):
         Returns:
             image (np.ndarray, 2D): The filtered image
         """
-        return CalcUtil.Convolve(image, self.kernel)
+        return CVMath.Convolve(image, self.kernel)
 
 
 class LaplacianFilter(IFilter):
@@ -133,7 +133,7 @@ class LaplacianFilter(IFilter):
         Returns:
             image (np.ndarray, 2D): The filtered image
         """
-        return CalcUtil.Convolve(image, self.kernel)
+        return CVMath.Convolve(image, self.kernel)
 
 
 class UnsharpMaskingFilter(IFilter):

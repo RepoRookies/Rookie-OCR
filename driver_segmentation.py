@@ -1,6 +1,4 @@
-from src.segmentation.core import *
-from src.segmentation.builder import SegmentationBuilder
-from src.types.segmentation import SegmentationType 
+from src.image_processor.segmentation import *
 
 import cv2
 import matplotlib.pyplot as plt
@@ -8,14 +6,9 @@ import matplotlib.pyplot as plt
 
 def main():
     image = cv2.imread("assets/test_deskewed.jpg", cv2.IMREAD_GRAYSCALE)
-    
-    _, image = cv2.threshold(
-        image,
-        0,
-        255,
-        cv2.THRESH_BINARY + cv2.THRESH_OTSU
-    )
-    
+
+    _, image = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
     type = SegmentationType.HPP
     line_segmenter = SegmentationBuilder.Build(SegmentationType.HPP)
     word_segmenter = SegmentationBuilder.Build(SegmentationType.VPP, min_width=50)

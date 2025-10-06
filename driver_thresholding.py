@@ -1,6 +1,7 @@
-from src.thresholding.core import *
-from src.thresholding.builder import ThresholdingBuilder
-from src.types.thresholding import ThresholdingMode, ThresholdingType
+from src.image_processor.thresholding import *
+from src.utils import Plotter
+
+# TBD: Upgrade `Plotter` for Such Use Cases...
 
 import cv2
 import matplotlib.pyplot as plt

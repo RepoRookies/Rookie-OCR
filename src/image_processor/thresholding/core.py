@@ -1,6 +1,6 @@
-from src.thresholding.interface import IThresholding
-from src.types.thresholding import ThresholdingMode
-from src.filters.core import GaussianFilter
+from .interface import IThresholding
+from src.dtypes import ThresholdingMode
+from src.image_processor.filters import GaussianFilter
 
 import numpy as np
 from typing import Callable

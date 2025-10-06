@@ -13,7 +13,7 @@ class PlotUtil:
             title (str): The title of the plot. Defaults to "".
             cmap (str): The color map of the plot. Defaults to "gray".
         """
-        plt.figure(figsize=(5, 5))
+        plt.figure(figsize=(8, 8))
         plt.imshow(image, cmap=cmap)
         plt.title(title)
         plt.axis("off")

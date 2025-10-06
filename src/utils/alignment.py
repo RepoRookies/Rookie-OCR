@@ -24,7 +24,7 @@ class AlignmentUtil:
         if height > width:
             angle -= 90
 
-        print(f"Detected angle: {angle:.2f} degrees")
+        # print(f"Detected angle: {angle:.2f} degrees")
 
         (h, w) = image.shape
         center = (w // 2, h // 2)

@@ -1,8 +1,7 @@
-from src.morphops.interface import IMorphOperation
-from src.morphops.core import Dilator, Eroder, Opener, Closer
-from src.types.morphops import MorphOperationType
+from .interface import IMorphOperation
+from .core import Dilator, Eroder, Opener, Closer
+from src.dtypes import MorphOperationType
 
-import numpy as np
 from typing import Any, Dict
 
 

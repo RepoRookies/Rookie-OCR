@@ -1,5 +1,5 @@
-from src.filters.interface import IFilter
-from src.filters.core import (
+from .interface import IFilter
+from .core import (
     AverageFilter,
     MedianFilter,
     GaussianFilter,
@@ -8,7 +8,7 @@ from src.filters.core import (
     UnsharpMaskingFilter,
     HighBoostFilter,
 )
-from src.types.filters import FilterType
+from src.dtypes import FilterType
 
 from typing import Any, Dict
 

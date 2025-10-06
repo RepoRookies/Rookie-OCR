@@ -1,4 +1,4 @@
-from src.morphops.interface import IMorphOperation
+from .interface import IMorphOperation
 
 import numpy as np
 

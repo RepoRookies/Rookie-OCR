@@ -1,11 +1,11 @@
-from src.thresholding.interface import IThresholding
-from src.thresholding.core import (
+from .interface import IThresholding
+from .core import (
     GlobalThresholding,
     AdaptiveMeanThresholding,
     AdaptiveGaussianThresholding,
     OtsuThresholding,
 )
-from src.types.thresholding import ThresholdingMode, ThresholdingType
+from src.dtypes import ThresholdingMode, ThresholdingType
 
 from typing import Any, Dict
 

@@ -1,14 +1,9 @@
-from src.morphops.core import *
-from src.morphops.builder import MorphOperationBuilder
-from src.types.morphops import MorphOperationType
-from src.utils.kernel_util import MorphKernelUtil
-from src.thresholding.builder import ThresholdingBuilder
-from src.types.thresholding import ThresholdingMode, ThresholdingType
-from src.utils.plot_util import PlotUtil
+from src.image_processor.morphops import *
+from src.image_processor.thresholding import *
+from src.utils import MorphKernelGenerator, Plotter
+
 
 import cv2
-import numpy as np
-import matplotlib.pyplot as plt
 
 
 def main():
@@ -18,14 +13,14 @@ def main():
     th_img = th.ApplyThresholding(image)
 
     type = MorphOperationType.CLOSING
-    kernel = MorphKernelUtil.GetCrossKernel(3)
+    kernel = MorphKernelGenerator.GetCrossKernel(3)
 
     mb = MorphOperationBuilder.Build(type=type, kernel=kernel)
     filtered_image = mb.Morph(image)
 
     th_filtered_image = mb.Morph(th_img)
 
-    PlotUtil.PlotImages(
+    Plotter.PlotImages(
         [image, filtered_image, th_filtered_image],
         title=type.value,
         subtitles=["Original Image", "Direct Oped Image", "Thresholded Image"],

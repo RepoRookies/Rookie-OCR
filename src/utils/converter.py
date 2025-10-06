@@ -1,7 +1,7 @@
 import cv2
 
 
-class Converter:
+class ConverterUtil:
     @staticmethod
     def ToGrayscale(image: cv2.Mat) -> cv2.Mat:
         """
@@ -23,14 +23,3 @@ class Converter:
             image (cv2.Mat): The binary image
         """
         return cv2.threshold(image, 127, 255, cv2.THRESH_BINARY)[1]
-
-    @staticmethod
-    def ToBinaryInv(image: cv2.Mat) -> cv2.Mat:
-        """
-        Converts an image to binary inverted
-        Args:
-            image (cv2.Mat): The input image
-        Returns:
-            image (cv2.Mat): The binary inverted image
-        """
-        return cv2.threshold(image, 127, 255, cv2.THRESH_BINARY_INV)[1]

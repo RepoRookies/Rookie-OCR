@@ -1,4 +1,4 @@
-from src.segmentation.interface import ISegmenter
+from .interface import ISegmenter
 
 import cv2
 import numpy as np

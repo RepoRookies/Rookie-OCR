@@ -1,11 +1,11 @@
-from src.segmentation.interface import ISegmenter
-from src.segmentation.core import (
+from .interface import ISegmenter
+from .core import (
     HPP_Segmentation,
     VPP_Segmentation,
     CCA_Segmentation,
     Contour_Segmentation,
 )
-from src.types.segmentation import SegmentationType
+from src.dtypes import SegmentationType
 
 from typing import Any, Dict
 

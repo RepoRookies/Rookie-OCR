@@ -1,9 +1,7 @@
-from src.filters.core import *
-from src.filters.builder import FilterBuilder
-from src.types.filters import FilterType
+from src.image_processor.filters import *
+from src.utils import Plotter
 
 import cv2
-import matplotlib.pyplot as plt
 
 
 def main():
@@ -13,19 +11,11 @@ def main():
     flt = FilterBuilder.Build(type)
     filtered_image = flt.Filter(image)
 
-    plt.subplots(1, 2, figsize=(10, 5))
-    plt.suptitle(type.value)
-
-    plt.subplot(1, 2, 1)
-    plt.imshow(image, cmap="gray")
-    plt.axis("off")
-
-    plt.subplot(1, 2, 2)
-    plt.imshow(filtered_image, cmap="gray")
-    plt.axis("off")
-
-    plt.tight_layout()
-    plt.show()
+    Plotter.PlotImages(
+        [image, filtered_image],
+        title=type.value,
+        subtitles=["Original Image", "Filtered Image"],
+    )
 
 
 if __name__ == "__main__":
