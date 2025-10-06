@@ -34,7 +34,7 @@ class PlotUtil:
             cmap (str): The color map of the plot. Defaults to "gray".
         """
         plt.subplots(1, len(images), figsize=(10, 5))
-        plt.suptitle(title)
+        plt.suptitle(title, fontsize=16)
 
         for i, image in enumerate(images):
             plt.subplot(1, len(images), i + 1)
