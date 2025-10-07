@@ -23,6 +23,8 @@ class AlignmentUtil:
 
         if height > width:
             angle -= 90
+        else:
+            angle -= angle
 
         # print(f"Detected angle: {angle:.2f} degrees")
 
