@@ -2,6 +2,10 @@ import re
 import cv2
 import numpy as np
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
+
 
 class CalcUtil:
     @staticmethod
@@ -50,16 +54,10 @@ class CalcUtil:
         Returns:
             similarity (float): The cosine similarity between the two strings
         """
-        first_vec = np.array([ord(c) for c in first_string])
-        second_vec = np.array([ord(c) for c in second_string])
-
-        max_len = max(len(first_vec), len(second_vec))
-        first_vec = np.pad(first_vec, (0, max_len - len(first_vec)))
-        second_vec = np.pad(second_vec, (0, max_len - len(second_vec)))
-
-        return np.dot(first_vec, second_vec) / (
-            np.linalg.norm(first_vec) * np.linalg.norm(second_vec)
-        )
+        vectorizer = TfidfVectorizer().fit([first_string, second_string])
+        vectors = vectorizer.transform([first_string, second_string])
+        sim = cosine_similarity(vectors[0], vectors[1])[0][0]
+        return sim
 
     @staticmethod
     def HammingDistance(first_string: str, second_string: str) -> int:
