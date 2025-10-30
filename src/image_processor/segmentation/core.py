@@ -6,7 +6,7 @@ from typing import List
 
 
 class HPP_Segmentation(ISegmenter):
-    def __init__(self, min_height: int = 5, margin: int = 2):
+    def __init__(self, min_height: int = 5, margin: int = 2,threshold_ratio: float = 0):
         """
         Constructor for Horizontal Projection Profile Segmentation.
         Args:
@@ -15,6 +15,7 @@ class HPP_Segmentation(ISegmenter):
         """
         self.min_height = min_height
         self.margin = margin
+        self.threshold_ratio = threshold_ratio
 
     def Segment(self, image: np.ndarray) -> List[np.ndarray]:
         """
@@ -25,15 +26,15 @@ class HPP_Segmentation(ISegmenter):
             segments (List[np.ndarray]): A list of cropped images, where each image contains one segment.
         """
         hpp = np.sum(image, axis=1)
-
+        threshold = np.max(hpp) * self.threshold_ratio
         start_indices = []
         end_indices = []
         in_segment = False
         for i, val in enumerate(hpp):
-            if val > 0 and not in_segment:
+            if val > threshold and not in_segment:
                 start_indices.append(i)
                 in_segment = True
-            elif val == 0 and in_segment:
+            elif val <= threshold  and in_segment:
                 end_indices.append(i)
                 in_segment = False
         if in_segment:
@@ -54,7 +55,7 @@ class HPP_Segmentation(ISegmenter):
 
 
 class VPP_Segmentation(ISegmenter):
-    def __init__(self, min_width: int = 3, margin: int = 2):
+    def __init__(self, min_width: int = 3, margin: int = 2,threshold_ratio : float = 0):
         """
         Constructor for Vertical Projection Profile Segmentation.
         Args:
@@ -63,6 +64,7 @@ class VPP_Segmentation(ISegmenter):
         """
         self.min_width = min_width
         self.margin = margin
+        self.threshold_ratio = threshold_ratio
 
     def Segment(self, image: np.ndarray) -> List[np.ndarray]:
         """
@@ -76,16 +78,17 @@ class VPP_Segmentation(ISegmenter):
             return []
 
         vpp = np.sum(image, axis=0)
+        threshold = np.max(vpp)*self.threshold_ratio;
 
         segments = []
         in_segments = False
         segment_start = 0
 
         for i, val in enumerate(vpp):
-            if val > 0 and not in_segments:
+            if val > threshold and not in_segments:
                 segment_start = i
                 in_segments = True
-            elif val == 0 and in_segments:
+            elif val <= threshold and in_segments:
                 if i - segment_start > self.min_width:
                     segment_crop = image[
                         :,

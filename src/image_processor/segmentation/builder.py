@@ -16,12 +16,14 @@ class SegmentationBuilder:
         if type == SegmentationType.HPP:
             min_height = kwargs.get("min_height", 5)
             margin = kwargs.get("margin", 2)
-            return HPP_Segmentation(min_height, margin)
+            threshold_ratio = kwargs.get("threshold_ratio", 0)
+            return HPP_Segmentation(min_height, margin, threshold_ratio)
 
         if type == SegmentationType.VPP:
             min_width = kwargs.get("min_width", 3)
             margin = kwargs.get("margin", 2)
-            return VPP_Segmentation(min_width, margin)
+            threshold_ratio = kwargs.get("threshold_ratio", 0)
+            return VPP_Segmentation(min_width, margin, threshold_ratio)
 
         if type == SegmentationType.CCA:
             min_height = kwargs.get("min_height", 5)
