@@ -3,6 +3,7 @@ from src.image_processor.morphops import *
 from src.image_processor.segmentation import *
 from src.image_processor.thresholding import *
 from src.utils import *
+# from tensorflow.keras.models import load_model
 
 import cv2
 import os
@@ -23,6 +24,7 @@ class ImageProcessor:
         self.lines = []
         self.words = []
         self.chars = []
+        self.predicted = []
 
     def Plot(self, title: str = "", cmap: str = "gray") -> Self:
         """
@@ -261,3 +263,10 @@ class ImageProcessor:
         seg = SegmentationBuilder.Build(SegmentationType.CCA, **kwargs)
         self.chars = seg.Segment(self.words[word_index])
         return self
+    
+    def OCR(self) -> Self:
+        for word_ind in len(self.words):
+            self.SegmentintoChars(self, word_index = word_ind)
+            for char in self.chars:
+                # Apply Model Present In 
+                pass

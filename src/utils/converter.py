@@ -23,3 +23,14 @@ class ConverterUtil:
             image (cv2.Mat): The binary image
         """
         return cv2.threshold(image, 127, 255, cv2.THRESH_BINARY)[1]
+    
+    @staticmethod
+    def ToInverted(image: cv2.Mat) -> cv2.Mat:
+        """
+        Converts an image to its binary inversion (Negative)
+        Args:
+            image (cv2.Mat): The input image
+        Returns:
+            image (cv2.Mat): The binary inverted image
+        """
+        return cv2.bitwise_not(image) 

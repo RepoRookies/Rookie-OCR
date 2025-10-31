@@ -6,3 +6,4 @@ class IMorphOperation(ABC):
     @abstractmethod
     def Morph(self, image: np.ndarray) -> np.ndarray:
         raise NotImplementedError
+

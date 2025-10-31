@@ -118,3 +118,5 @@ class Closer(IMorphOperation):
         dilated = self.dilator.Morph(image)
         closed = self.eroder.Morph(dilated)
         return closed
+
+
