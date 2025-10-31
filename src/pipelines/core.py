@@ -3,7 +3,6 @@ from src.image_processor.morphops import *
 from src.image_processor.segmentation import *
 from src.image_processor.thresholding import *
 from src.utils import *
-# from tensorflow.keras.models import load_model
 
 import cv2
 import os
