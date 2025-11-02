@@ -16,27 +16,27 @@ class SegmentationBuilder:
         if type == SegmentationType.HPP:
             min_height = kwargs.get("min_height", 5)
             margin = kwargs.get("margin", 2)
-            closing_kernel = kwargs.get("closing_kernel", None)
+            morphop = kwargs.get("morphop", None)
             threshold_ratio = kwargs.get("threshold_ratio", 0)
-            return HPP_Segmentation(min_height, margin, threshold_ratio,closing_kernel)
+            return HPP_Segmentation(min_height, margin, threshold_ratio,morphop)
 
         if type == SegmentationType.VPP:
             min_width = kwargs.get("min_width", 3)
             margin = kwargs.get("margin", 2)
             threshold_ratio = kwargs.get("threshold_ratio", 0)
-            closing_kernel = kwargs.get("closing_kernel", None)
-            return VPP_Segmentation(min_width, margin, threshold_ratio,closing_kernel)
+            morphop = kwargs.get("morphop", None)
+            return VPP_Segmentation(min_width, margin, threshold_ratio,morphop)
 
         if type == SegmentationType.CCA:
             min_height = kwargs.get("min_height", 5)
-            closing_kernel = kwargs.get("closing_kernel", None)
-            return CCA_Segmentation(min_height,closing_kernel)
+            morphop = kwargs.get("morphop", None)
+            return CCA_Segmentation(min_height,morphop)
 
         if type == SegmentationType.COUNTOUR:
             min_height = kwargs.get("min_height", 5)
             min_width = kwargs.get("min_width", 3)
             margin = kwargs.get("margin", 2)
-            closing_kernel = kwargs.get("closing_kernel", None)
-            return Contour_Segmentation(min_height, min_width, margin,closing_kernel)
+            morphop = kwargs.get("morphop", None)
+            return Contour_Segmentation(min_height, min_width, margin,morphop)
 
         raise Exception("Invalid segmenter type")

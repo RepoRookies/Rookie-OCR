@@ -1,5 +1,5 @@
 from .interface import ISegmenter
-from src.image_processor.morphops import *
+from src.image_processor.morphops import IMorphOperation
 
 import cv2
 import numpy as np
@@ -8,29 +8,29 @@ from typing import List
 
 class HPP_Segmentation(ISegmenter):
     def __init__(self, min_height: int = 5, margin: int = 2,
-                 threshold_ratio: float = 0.5, closing_kernel: np.ndarray = None):
+                 threshold_ratio: float = 0.5, morphop: IMorphOperation = None):
         """
         Horizontal Projection Profile (HPP) Segmentation.
         Args:
             min_height (int): Minimum height for a segment to be considered.
             margin (int): Pixel margin added around the cropped line.
             threshold_ratio (float): Threshold relative to mean HPP value.
-            closing_kernel (np.ndarray): Morphological kernel for closing (optional).
+            morphop (IMorphOperation): Morphological preprocessing operation (optional).
         """
         self.min_height = min_height
         self.margin = margin
         self.threshold_ratio = threshold_ratio
-        self.closing_kernel = closing_kernel
+        self.morphop = morphop
 
     def Segment(self, image: np.ndarray) -> List[np.ndarray]:
         if image.size == 0:
             return []
 
-        closed_image = (Closer(kernel=self.closing_kernel).Morph(image)
-                        if self.closing_kernel is not None else image)
+        processed_image = (self.morphop.Morph(image)
+                           if self.morphop is not None else image)
 
-        # Compute horizontal projection profile (HPP)
-        hpp = np.sum(closed_image.astype(np.uint32), axis=1)
+        # Horizontal Projection Profile (HPP)
+        hpp = np.sum(processed_image.astype(np.uint32), axis=1)
         mean_val = np.mean(hpp)
         threshold = mean_val * self.threshold_ratio
 
@@ -58,29 +58,29 @@ class HPP_Segmentation(ISegmenter):
 
 class VPP_Segmentation(ISegmenter):
     def __init__(self, min_width: int = 3, margin: int = 2,
-                 threshold_ratio: float = 0.5, closing_kernel: np.ndarray = None):
+                 threshold_ratio: float = 0.5, morphop: IMorphOperation = None):
         """
         Vertical Projection Profile (VPP) Segmentation.
         Args:
             min_width (int): Minimum width for a segment to be considered.
             margin (int): Pixel margin added around the cropped word.
             threshold_ratio (float): Threshold relative to mean VPP value.
-            closing_kernel (np.ndarray): Morphological kernel for closing (optional).
+            morphop (IMorphOperation): Morphological preprocessing operation (optional).
         """
         self.min_width = min_width
         self.margin = margin
         self.threshold_ratio = threshold_ratio
-        self.closing_kernel = closing_kernel
+        self.morphop = morphop
 
     def Segment(self, image: np.ndarray) -> List[np.ndarray]:
         if image.size == 0:
             return []
 
-        closed_image = (Closer(kernel=self.closing_kernel).Morph(image)
-                        if self.closing_kernel is not None else image)
+        processed_image = (self.morphop.Morph(image)
+                           if self.morphop is not None else image)
 
-        # Compute vertical projection profile (VPP)
-        vpp = np.sum(closed_image.astype(np.uint32), axis=0)
+        # Vertical Projection Profile (VPP)
+        vpp = np.sum(processed_image.astype(np.uint32), axis=0)
         vpp_smooth = cv2.blur(vpp.reshape(1, -1).astype(np.float32), (1, 5)).flatten()
         mean_val = np.mean(vpp_smooth)
         threshold = mean_val * self.threshold_ratio
@@ -107,25 +107,25 @@ class VPP_Segmentation(ISegmenter):
 
 
 class CCA_Segmentation(ISegmenter):
-    def __init__(self, min_height: int = 5, closing_kernel: np.ndarray = None):
+    def __init__(self, min_height: int = 5, morphop: IMorphOperation = None):
         """
         Connected Component Analysis (CCA) Segmentation.
         Args:
             min_height (int): Minimum height for a connected component to be considered.
-            closing_kernel (np.ndarray): Morphological kernel for closing (optional).
+            morphop (IMorphOperation): Morphological preprocessing operation (optional).
         """
         self.min_char_height = min_height
-        self.closing_kernel = closing_kernel
+        self.morphop = morphop
 
     def Segment(self, image: np.ndarray) -> List[np.ndarray]:
         if image.size == 0:
             return []
 
-        closed_image = (Closer(kernel=self.closing_kernel).Morph(image)
-                        if self.closing_kernel is not None else image)
+        processed_image = (self.morphop.Morph(image)
+                           if self.morphop is not None else image)
 
         num_labels, _, stats, _ = cv2.connectedComponentsWithStats(
-            closed_image.astype(np.uint8), 8, cv2.CV_32S
+            processed_image.astype(np.uint8), 8, cv2.CV_32S
         )
 
         components = []
@@ -143,29 +143,29 @@ class CCA_Segmentation(ISegmenter):
 
 class Contour_Segmentation(ISegmenter):
     def __init__(self, min_height: int = 5, min_width: int = 3,
-                 margin: int = 2, closing_kernel: np.ndarray = None):
+                 margin: int = 2, morphop: IMorphOperation = None):
         """
         Contour-based segmentation.
         Args:
             min_height (int): Minimum height for a contour to be considered.
             min_width (int): Minimum width for a contour to be considered.
             margin (int): Pixel margin around the cropped contour.
-            closing_kernel (np.ndarray): Morphological kernel for closing (optional).
+            morphop (IMorphOperation): Morphological preprocessing operation (optional).
         """
         self.min_height = min_height
         self.min_width = min_width
         self.margin = margin
-        self.closing_kernel = closing_kernel
+        self.morphop = morphop
 
     def Segment(self, image: np.ndarray) -> List[np.ndarray]:
         if image.size == 0:
             return []
 
-        closed_image = (Closer(kernel=self.closing_kernel).Morph(image)
-                        if self.closing_kernel is not None else image)
+        processed_image = (self.morphop.Morph(image)
+                           if self.morphop is not None else image)
 
         contours, _ = cv2.findContours(
-            closed_image.astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+            processed_image.astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
         )
 
         segments = []
