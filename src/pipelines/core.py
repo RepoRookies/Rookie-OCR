@@ -3,7 +3,7 @@ from src.image_processor.morphops import *
 from src.image_processor.segmentation import *
 from src.image_processor.thresholding import *
 from src.utils import *
-
+from src.ocr_predicter import RookieOCR
 import cv2
 import os
 import numpy as np
@@ -263,9 +263,48 @@ class ImageProcessor:
         self.chars = seg.Segment(self.words[word_index])
         return self
     
+    
+    # def OCR(self) -> Self:
+    #     for word_ind in len(self.words):
+    #         self.SegmentintoChars(self, word_index = word_ind)
+    #         for char in self.chars:
+    #             # Apply Model Present In 
+    #             pass
+
+class OCRPipeline(ImageProcessor):
+    def __init__(self, image_path: str, model_path: str):
+        super().__init__(image_path)
+        self.ocr_model = RookieOCR(model_path)
+
     def OCR(self) -> Self:
-        for word_ind in len(self.words):
-            self.SegmentintoChars(self, word_index = word_ind)
-            for char in self.chars:
-                # Apply Model Present In 
-                pass
+        """
+        Uses the current characters (self.chars) to generate predictions and
+        stores them in self.predicted.
+        Args:
+            ocr_model: An object exposing recognize_word(chars) -> str | list[str]
+        Returns:
+            self (ImageProcessor)
+        """
+        if len(self.chars) == 0:
+            raise ValueError("Character or CCA segmentation must be performed first")
+        
+        result = self.ocr_model.recognize_word(self.chars)
+
+        if isinstance(result, str):
+            self.predicted = list(result)
+        elif isinstance(result, (list, tuple)):
+            self.predicted = list(result)
+        else:
+            raise TypeError("recognize_word must return a string or list of characters")
+
+        return self
+        
+    def PrintPredictedString(self) -> Self:
+        """
+        Returns the predicted characters as a single concatenated string.
+        """
+        if not isinstance(self.predicted, (list, tuple)):
+            print("No predicted characters found")
+        else:
+             print("".join(str(ch) for ch in self.predicted))
+        return self

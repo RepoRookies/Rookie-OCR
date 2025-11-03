@@ -1,5 +1,7 @@
-from .core import ImageProcessor
+from .core import ImageProcessor, OCRPipeline
+
 
 __all__ = [
     "ImageProcessor",
+    "OCRPipeline",
 ]
